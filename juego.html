@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
+    <title>JUEGO</title>
+</head>
+<body>
+
+    <h1>Juego de prueba 🎃</h1>
+
+    <main id="main">
+    <div id="seleccionar-mascota">
+        <h2>Elegí tu mascota</h2>
+
+        <label for="hipopotamo">Hipopótamo</label>
+            <input type="radio" name="mascota" id="hipopotamo" />
+            
+        <label for="tigre">Tigre</label>
+            <input type="radio" name="mascota" id="tigre" />
+            
+        <label for="aguila">Aguila</label>
+            <input type="radio" name="mascota" id="aguila" />
+
+        <button id="btn-mascota">Seleccionar</button>
+    </div>
+
+    <div id="seleccionar-ataque">
+        <h2>Elegí tu ataque</h2>
+
+        <p>Tu Mascota <span id="mascota-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
+        <p>La mascota <span id="mascota-enemigo"></span> del enemigo tiene <span id="vidas-enemigo">3</span> vidas</p>
+
+        <p>
+            <button id="btn-fuego">FUEGO 🔥</button>
+            <button id="btn-agua">AGUA 💧</button>
+            <button id="btn-aire">AIRE 🌬</button>
+        </p>
+    </div>
+
+    <div id="mensajes"></div>
+
+    <div id="reiniciar">
+        <button id="btn-reiniciar">Reiniciar</button>
+    </div>
+</main>
+
+    <script src="js/juego.js" type="module"></script>
+</body>
+</html>
