@@ -24,26 +24,24 @@ function iniciarJuego() {
 }
 
 function SeleccionarMascotaJugador() {
-  let sectionSeleccionarAtaque = document.getElementById("seleccionar-ataque");
-  sectionSeleccionarAtaque.style.display = "block";
-
-  let sectionSeleccionarMascota = document.getElementById(
-    "seleccionar-mascota"
-  );
+  let sectionSeleccionarMascota = document.getElementById("seleccionar-mascota");
   sectionSeleccionarMascota.style.display = "none";
 
-  let inputHipopotamo = document.getElementById("hipopotamo");
-  let inputTigre = document.getElementById("tigre");
-  let inputAguila = document.getElementById("aguila");
+  let sectionSeleccionarAtaque = document.getElementById("seleccionar-ataque");
+  sectionSeleccionarAtaque.style.display = "flex";
+
+  let inputLeo = document.getElementById("leo");
+  let inputFenix = document.getElementById("fenix");
+  let inputSeiya = document.getElementById("seiya");
   let spanMascotaJugador = document.getElementById("mascota-jugador");
   let comenzarJuego = 1;
 
-  if (inputHipopotamo.checked) {
-    spanMascotaJugador.innerHTML = "Hipopótamo";
-  } else if (inputTigre.checked) {
-    spanMascotaJugador.innerHTML = "Tigre";
-  } else if (inputAguila.checked) {
-    spanMascotaJugador.innerHTML = "Águila";
+  if (inputLeo.checked) {
+    spanMascotaJugador.innerHTML = "Aioria de Leo";
+  } else if (inputFenix.checked) {
+    spanMascotaJugador.innerHTML = "Ikki de Fénix";
+  } else if (inputSeiya.checked) {
+    spanMascotaJugador.innerHTML = "Seiya de Pegaso";
   } else {
     alert("Tenes que seleccionar una mascota");
     comenzarJuego = 0;
@@ -59,11 +57,11 @@ function SeleccionarMascotaEnemigo() {
   let spanMascotaEnemigo = document.getElementById("mascota-enemigo");
 
   if (aleatorioEnemigo == 1) {
-    spanMascotaEnemigo.innerHTML = "Hipopótamo";
+    spanMascotaEnemigo.innerHTML = "Aioria de Leo";
   } else if (aleatorioEnemigo == 2) {
-    spanMascotaEnemigo.innerHTML = "Tigre";
+    spanMascotaEnemigo.innerHTML = "Ikki de Fénix";
   } else {
-    spanMascotaEnemigo.innerHTML = "Águila";
+    spanMascotaEnemigo.innerHTML = "Seiya de Pegaso";
   }
 }
 

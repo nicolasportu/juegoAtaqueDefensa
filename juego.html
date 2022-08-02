@@ -1,56 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/styles.css">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="styles/styles.css" />
     <title>JUEGO</title>
 </head>
+
 <body>
+    <section class="tarjeta-grupo" id="seleccionar-mascota">
+    <h1 class="titulo">LA GRAN BATALLA</h1>
 
-    <h1>Juego de prueba 🎃</h1>
+    <h2 class="subtitulo">Elegi tu personaje</h2>
+    
+        <div class="tarjetas"> 
+        <label class="tarjeta" for="leo">
+            <p class="nombre-mascota">Aioria de Leo</p>
+            <img src="assets/aioriaDeLeo-removebg-preview.png" alt="Aioria de Leo" />
+        </label>
+        <input type="radio" name="mascota" id="leo" />
 
-    <main id="main">
-    <div id="seleccionar-mascota">
-        <h2>Elegí tu mascota</h2>
+        <label class="tarjeta" for="fenix">
+            <p class="nombre-mascota">Ikki de Fenix</p>
+            <img src="assets/fenix-removebg-preview.png" alt="Ikki de Fénix" />
+        </label>
+        <input type="radio" name="mascota" id="fenix" />
 
-        <label for="hipopotamo">Hipopótamo</label>
-            <input type="radio" name="mascota" id="hipopotamo" />
-            
-        <label for="tigre">Tigre</label>
-            <input type="radio" name="mascota" id="tigre" />
-            
-        <label for="aguila">Aguila</label>
-            <input type="radio" name="mascota" id="aguila" />
-
+        <label class="tarjeta" for="seiya">
+            <p class="nombre-mascota">Seiya de Pegaso</p>
+            <img src="assets/seiya-removebg-preview.png" alt="Seiya de Pegaso" />
+        </label>
+        <input type="radio" name="mascota" id="seiya" />
+        </div>
         <button id="btn-mascota">Seleccionar</button>
-    </div>
+    </section>
 
-    <div id="seleccionar-ataque">
-        <h2>Elegí tu ataque</h2>
+    <section id="seleccionar-ataque">
+        <h1 class="titulo">LA GRAN BATALLA</h1>
 
-        <p>Tu Mascota <span id="mascota-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
-        <p>La mascota <span id="mascota-enemigo"></span> del enemigo tiene <span id="vidas-enemigo">3</span> vidas</p>
+        <h2 class="subtitulo">Elegi tu ataque:</h2>
 
-        <p>
-            <button id="btn-fuego">FUEGO 🔥</button>
-            <button id="btn-agua">AGUA 💧</button>
-            <button id="btn-aire">AIRE 🌬</button>
-        </p>
-    </div>
+        <div>
+            <button id="btn-fuego" class="boton-de-ataque">FUEGO 🔥</button>
+            <button id="btn-agua" class="boton-de-ataque">AGUA 💧</button>
+            <button id="btn-aire" class="boton-de-ataque">AIRE 🌬</button>
+        </div>
 
-    <div id="mensajes"></div>
+        <div>
+            <div id="mensajes"></div>
 
-    <div id="reiniciar">
-        <button id="btn-reiniciar">Reiniciar</button>
-    </div>
-</main>
+            <div id="reiniciar">
+                <button id="btn-reiniciar">Reiniciar</button>
+            </div>
+        </div>
+
+        <div>
+            <p>Tu personaje <span id="mascota-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
+            <p>El personaje <span id="mascota-enemigo"></span> enemigo tiene <span id="vidas-enemigo">3</span> vidas</p>
+        </div>
+    </section>
 
     <script src="js/juego.js" type="module"></script>
 </body>
+
 </html>
