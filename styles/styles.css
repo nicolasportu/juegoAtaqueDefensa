@@ -42,7 +42,7 @@ body {
     text-shadow: 5px 1px #100F0F, 2px 0 #0F3D3E;
 }
 
-.tarjetas {
+.tarjetas, .tarjetas-ataques {
     display: flex;
     gap: 10px;
 }
@@ -92,6 +92,10 @@ input {
     display: none;
 }
 
+input:checked + label {
+    background: url(../assets/fondo-personaje.jpg);
+}
+
 #seleccionar-ataque {
     flex-direction: column;
     align-items: center;
@@ -108,4 +112,72 @@ input {
     border-color: transparent;
     margin: 30px 10px;
     cursor: pointer;
+}
+
+#mensajes {
+    width: 200px;
+    background: #E2DCC8;
+    padding: 20px;
+    margin: 5px;
+    border-radius: 15px;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+#btn-reiniciar {
+    border: transparent;
+    border-radius: 5px;
+    background: #0F3D3E;
+    padding: 5px;
+    color: #E2DCC8;
+    font-family: 'vengadores';
+    font-size: 17px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.ataques {
+    display: grid;
+    grid-template-columns: 150px 150px;
+    color: #000;
+    background: transparent;
+    text-align: center;
+    margin: 10px;
+    line-height: 25px;
+    background: #0F3D3E;
+    border-radius: 15px;
+}
+
+#vidas-jugador, #vidas-enemigo {
+    font-size: 35px;
+    border-radius: 4px;
+    margin: 5px;
+    padding: 5px;
+    color: #E2DCC8;
+}
+
+#mascota-jugador, #mascota-enemigo {
+    color: #E2DCC8;
+    padding: 3px;
+    font-size: 17px;
+}
+
+.ataques-jugador, .ataques-enemigo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (max-width: 360px) {
+    .tarjetas, .tarjetas-ataques {
+        flex-direction: column;
+    }
+
+    .titulo, .subtitulo {
+        font-size: 25px;
+    }
 }

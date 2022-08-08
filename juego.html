@@ -12,28 +12,29 @@
 
 <body>
     <section class="tarjeta-grupo" id="seleccionar-mascota">
-    <h1 class="titulo">LA GRAN BATALLA</h1>
+        <h1 class="titulo">LA GRAN BATALLA</h1>
 
-    <h2 class="subtitulo">Elegi tu personaje</h2>
-    
-        <div class="tarjetas"> 
-        <label class="tarjeta" for="leo">
-            <p class="nombre-mascota">Aioria de Leo</p>
-            <img src="assets/aioriaDeLeo-removebg-preview.png" alt="Aioria de Leo" />
-        </label>
-        <input type="radio" name="mascota" id="leo" />
+        <h2 class="subtitulo">Elegi tu personaje</h2>
 
-        <label class="tarjeta" for="fenix">
-            <p class="nombre-mascota">Ikki de Fenix</p>
-            <img src="assets/fenix-removebg-preview.png" alt="Ikki de Fénix" />
-        </label>
-        <input type="radio" name="mascota" id="fenix" />
-
-        <label class="tarjeta" for="seiya">
-            <p class="nombre-mascota">Seiya de Pegaso</p>
-            <img src="assets/seiya-removebg-preview.png" alt="Seiya de Pegaso" />
-        </label>
-        <input type="radio" name="mascota" id="seiya" />
+        <div class="tarjetas">
+            <input type="radio" name="mascota" id="leo" />
+            <label class="tarjeta" for="leo">
+                <p class="nombre-mascota">Aioria de Leo</p>
+                <img src="assets/aioriaDeLeo-removebg-preview.png" alt="Aioria de Leo" />
+            </label>
+            
+            <input type="radio" name="mascota" id="fenix" />
+            <label class="tarjeta" for="fenix">
+                <p class="nombre-mascota">Ikki de Fenix</p>
+                <img src="assets/fenix-removebg-preview.png" alt="Ikki de Fénix" />
+            </label>
+            
+            <input type="radio" name="mascota" id="seiya" />
+            <label class="tarjeta" for="seiya">
+                <p class="nombre-mascota">Seiya de Pegaso</p>
+                <img src="assets/seiya-removebg-preview.png" alt="Seiya de Pegaso" />
+            </label>
+            
         </div>
         <button id="btn-mascota">Seleccionar</button>
     </section>
@@ -43,27 +44,36 @@
 
         <h2 class="subtitulo">Elegi tu ataque:</h2>
 
-        <div>
+        <div class="tarjetas-ataques">
             <button id="btn-fuego" class="boton-de-ataque">FUEGO 🔥</button>
             <button id="btn-agua" class="boton-de-ataque">AGUA 💧</button>
-            <button id="btn-aire" class="boton-de-ataque">AIRE 🌬</button>
+            <button id="btn-aire" class="boton-de-ataque">AIRE 🌪</button>
         </div>
 
-        <div>
-            <div id="mensajes"></div>
+        <div id="mensajes">
+            <div id="resultado">¡Mucha Suerte!</div>
 
             <div id="reiniciar">
                 <button id="btn-reiniciar">Reiniciar</button>
             </div>
         </div>
 
-        <div>
-            <p>Tu personaje <span id="mascota-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
-            <p>El personaje <span id="mascota-enemigo"></span> enemigo tiene <span id="vidas-enemigo">3</span> vidas</p>
+        <div class="ataques">
+            <div class="ataques-jugador">
+                <p id="vidas-jugador">3</p>
+                <p id="mascota-jugador"></p>
+                <div id="ataques-del-jugador"></div>
+            </div>
+
+            <div class="ataques-enemigo">
+                <span id="vidas-enemigo">3</span>
+                <span id="mascota-enemigo"></span>
+                <div id="ataques-del-enemigo"></div>
+            </div>
         </div>
     </section>
 
-    <script src="js/juego.js" type="module"></script>
+        <script src="js/juego.js" type="module"></script>
 </body>
 
 </html>

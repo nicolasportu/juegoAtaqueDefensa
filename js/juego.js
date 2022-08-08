@@ -39,7 +39,7 @@ function SeleccionarMascotaJugador() {
   if (inputLeo.checked) {
     spanMascotaJugador.innerHTML = "Aioria de Leo";
   } else if (inputFenix.checked) {
-    spanMascotaJugador.innerHTML = "Ikki de Fénix";
+    spanMascotaJugador.innerHTML = "Ikki de Fenix";
   } else if (inputSeiya.checked) {
     spanMascotaJugador.innerHTML = "Seiya de Pegaso";
   } else {
@@ -59,7 +59,7 @@ function SeleccionarMascotaEnemigo() {
   if (aleatorioEnemigo == 1) {
     spanMascotaEnemigo.innerHTML = "Aioria de Leo";
   } else if (aleatorioEnemigo == 2) {
-    spanMascotaEnemigo.innerHTML = "Ikki de Fénix";
+    spanMascotaEnemigo.innerHTML = "Ikki de Fenix";
   } else {
     spanMascotaEnemigo.innerHTML = "Seiya de Pegaso";
   }
@@ -115,28 +115,33 @@ function combateSpace() {
 
 function resultadoVidas() {
   if (vidasEnemigo == 0) {
-    crearMensajeFinal("GANASTE");
+    crearMensajeFinal("JUEGO GANADO");
   } else if (vidasJugador == 0) {
-    crearMensajeFinal("PERDISTE");
+    crearMensajeFinal("JUEGO PERDIDO");
   }
 }
 
 function crearMensaje(resultado) {
-  let sectionMensajes = document.getElementById("mensajes");
+  let sectionMensajes = document.getElementById("resultado");
+  let ataquesDelJugador = document.getElementById("ataques-del-jugador");
+  let ataquesDelEnemigo = document.getElementById("ataques-del-enemigo");
 
-  let parrafo = document.createElement("p");
-  parrafo.innerHTML = `Tú mascota atacó con ${ataqueJugador}, mientras que la mascota del enemigo atacó con ${ataqueEnemigo}. El resultado es.... ${resultado}.`;
+  let nuevoAtaqueDelJugador = document.createElement('p');
+  let nuevoAtaqueDelEnemigo = document.createElement('p');
 
-  sectionMensajes.appendChild(parrafo);
+  sectionMensajes.innerHTML = resultado;
+  nuevoAtaqueDelJugador.innerHTML = ataqueJugador;
+  nuevoAtaqueDelEnemigo.innerHTML = ataqueEnemigo;
+
+  
+  ataquesDelJugador.appendChild(nuevoAtaqueDelJugador);
+  ataquesDelEnemigo.appendChild(nuevoAtaqueDelEnemigo);
 }
 
 function crearMensajeFinal(resultadoFinal) {
-  let sectionMensajes = document.getElementById("mensajes");
+  let sectionMensajes = document.getElementById("resultado");
 
-  let parrafo = document.createElement("p");
-  parrafo.innerHTML = resultadoFinal;
-
-  sectionMensajes.appendChild(parrafo);
+  sectionMensajes.innerHTML = resultadoFinal;
 
   let btnMascotaJugador = document.getElementById("btn-mascota");
   btnMascotaJugador.disabled = true;
