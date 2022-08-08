@@ -1,47 +1,120 @@
+// iniciarJuego
+const sectionReiniciar = document.getElementById("reiniciar");
+const btnMascotaJugador = document.getElementById("btn-mascota");
+const botonFuego = document.getElementById("btn-fuego");
+const sectionSeleccionarAtaque = document.getElementById("seleccionar-ataque");
+const botonAgua = document.getElementById("btn-agua");
+const botonAire = document.getElementById("btn-aire");
+const botonReinicio = document.getElementById("btn-reiniciar");
+
+//SeleccionarMascotaJugador
+const sectionSeleccionarMascota = document.getElementById("seleccionar-mascota");
+const spanMascotaJugador = document.getElementById("mascota-jugador");
+
+//SeleccionarMascotaEnemigo
+const spanMascotaEnemigo = document.getElementById("mascota-enemigo");
+
+//combateSpace
+const spanVidasJugador = document.getElementById("vidas-jugador");
+const spanVidasEnemigo = document.getElementById("vidas-enemigo");
+
+//crearMensaje
+const sectionMensajes = document.getElementById("resultado");
+const ataquesDelJugador = document.getElementById("ataques-del-jugador");
+const ataquesDelEnemigo = document.getElementById("ataques-del-enemigo");
+const contenedorTarjetas = document.getElementById('contenedorTarjetas');
+
+let caballeros = []
 let ataqueJugador;
 let ataqueEnemigo;
+let opcionDeCaballeros;
+let inputLeo;
+let inputFenix;
+let inputSeiya;
 let vidasJugador = 3;
 let vidasEnemigo = 3;
 
-function iniciarJuego() {
-  let sectionSeleccionarAtaque = document.getElementById("seleccionar-ataque");
-  sectionSeleccionarAtaque.style.display = "none";
+class Zodiaco {
+  constructor(nombre, foto, vida) {
+    this.nombre = nombre;
+    this.foto = foto;
+    this.vida = vida;
+    this.ataques = []
+  }
+}
 
-  let sectionReiniciar = document.getElementById("reiniciar");
+let leo = new Zodiaco('Aioria', './assets/aioriaDeLeo-removebg-preview.png', 5);
+
+let fenix = new Zodiaco('Ikki', './assets/fenix-removebg-preview.png', 5);
+
+let seiya = new Zodiaco('Seiya', './assets/seiya-removebg-preview.png', 5);
+
+leo.ataques.push(
+  {nombre: '🔥', id: 'btn-fuego'},
+  {nombre: '🔥', id: 'btn-fuego'},
+  {nombre: '🔥', id: 'btn-fuego'},
+  {nombre: '💧', id: 'btn-agua'},
+  {nombre: '🌪', id: 'btn-aire'},
+);
+
+fenix.ataques.push(
+  {nombre: '🌪', id: 'btn-aire'},
+  {nombre: '🌪', id: 'btn-aire'},
+  {nombre: '🌪', id: 'btn-aire'},
+  {nombre: '💧', id: 'btn-agua'},
+  {nombre: '🔥', id: 'btn-fuego'},
+);
+
+seiya.ataques.push(
+  {nombre: '💧', id: 'btn-agua'},
+  {nombre: '💧', id: 'btn-agua'},
+  {nombre: '💧', id: 'btn-agua'},
+  {nombre: '🔥', id: 'btn-fuego'},
+  {nombre: '🌪', id: 'btn-aire'},
+); 
+
+caballeros.push(leo, fenix, seiya);
+
+function iniciarJuego() {
+  sectionSeleccionarAtaque.style.display = "none";
   sectionReiniciar.style.display = "none";
 
-  let btnMascotaJugador = document.getElementById("btn-mascota");
-  btnMascotaJugador.addEventListener("click", SeleccionarMascotaJugador);
+  caballeros.forEach((caballero) => {
+    opcionDeCaballeros = `
+    <input type="radio" name="mascota" id=${caballero.nombre} />
+    <label class="tarjeta" for=${caballero.nombre}>
+        <p>${caballero.nombre}</p>
+        <img src=${caballero.foto} alt=${caballero.nombre} />
+    </label>
+    `
 
-  let botonFuego = document.getElementById("btn-fuego");
+    contenedorTarjetas.innerHTML += opcionDeCaballeros;
+
+    inputLeo = document.getElementById("Aioria");
+    inputFenix = document.getElementById("Ikki");
+    inputSeiya = document.getElementById("Seiya");
+  })
+
+  btnMascotaJugador.addEventListener("click", SeleccionarMascotaJugador);
   botonFuego.addEventListener("click", ataqueFuego);
-  let botonAgua = document.getElementById("btn-agua");
   botonAgua.addEventListener("click", ataqueAgua);
-  let botonAire = document.getElementById("btn-aire");
   botonAire.addEventListener("click", ataqueAire);
-  let botonReinicio = document.getElementById("btn-reiniciar");
   botonReinicio.addEventListener("click", botonReiniciarJuego);
 }
 
 function SeleccionarMascotaJugador() {
-  let sectionSeleccionarMascota = document.getElementById("seleccionar-mascota");
   sectionSeleccionarMascota.style.display = "none";
 
-  let sectionSeleccionarAtaque = document.getElementById("seleccionar-ataque");
   sectionSeleccionarAtaque.style.display = "flex";
 
-  let inputLeo = document.getElementById("leo");
-  let inputFenix = document.getElementById("fenix");
-  let inputSeiya = document.getElementById("seiya");
-  let spanMascotaJugador = document.getElementById("mascota-jugador");
   let comenzarJuego = 1;
 
   if (inputLeo.checked) {
-    spanMascotaJugador.innerHTML = "Aioria de Leo";
+    spanMascotaJugador.innerHTML = inputLeo.id;
   } else if (inputFenix.checked) {
-    spanMascotaJugador.innerHTML = "Ikki de Fenix";
+    spanMascotaJugador.innerHTML = inputFenix.id;
   } else if (inputSeiya.checked) {
-    spanMascotaJugador.innerHTML = "Seiya de Pegaso";
+    spanMascotaJugador.innerHTML = inputSeiya.id;
   } else {
     alert("Tenes que seleccionar una mascota");
     comenzarJuego = 0;
@@ -54,14 +127,13 @@ function SeleccionarMascotaJugador() {
 
 function SeleccionarMascotaEnemigo() {
   let aleatorioEnemigo = aleatorio(1, 3);
-  let spanMascotaEnemigo = document.getElementById("mascota-enemigo");
 
   if (aleatorioEnemigo == 1) {
-    spanMascotaEnemigo.innerHTML = "Aioria de Leo";
+    spanMascotaEnemigo.innerHTML = "Aioria";
   } else if (aleatorioEnemigo == 2) {
-    spanMascotaEnemigo.innerHTML = "Ikki de Fenix";
+    spanMascotaEnemigo.innerHTML = "Ikki";
   } else {
-    spanMascotaEnemigo.innerHTML = "Seiya de Pegaso";
+    spanMascotaEnemigo.innerHTML = "Seiya";
   }
 }
 
@@ -95,12 +167,13 @@ function ataqueRandomEnemigo() {
 }
 
 function combateSpace() {
-  let spanVidasJugador = document.getElementById("vidas-jugador");
-  let spanVidasEnemigo = document.getElementById("vidas-enemigo");
-
   if (ataqueEnemigo == ataqueJugador) {
     crearMensaje("EMPATE");
-  } else if ((ataqueJugador == "FUEGO" && ataqueEnemigo == "AIRE") || (ataqueJugador == "AGUA" && ataqueEnemigo == "FUEGO") || (ataqueJugador == "AIRE" && ataqueEnemigo == "AGUA")) {
+  } else if (
+    (ataqueJugador == "FUEGO" && ataqueEnemigo == "AIRE") ||
+    (ataqueJugador == "AGUA" && ataqueEnemigo == "FUEGO") ||
+    (ataqueJugador == "AIRE" && ataqueEnemigo == "AGUA")
+  ) {
     crearMensaje("GANASTE");
     vidasEnemigo--;
     spanVidasEnemigo.innerHTML = vidasEnemigo;
@@ -122,37 +195,28 @@ function resultadoVidas() {
 }
 
 function crearMensaje(resultado) {
-  let sectionMensajes = document.getElementById("resultado");
-  let ataquesDelJugador = document.getElementById("ataques-del-jugador");
-  let ataquesDelEnemigo = document.getElementById("ataques-del-enemigo");
-
-  let nuevoAtaqueDelJugador = document.createElement('p');
-  let nuevoAtaqueDelEnemigo = document.createElement('p');
+  let nuevoAtaqueDelJugador = document.createElement("p");
+  let nuevoAtaqueDelEnemigo = document.createElement("p");
 
   sectionMensajes.innerHTML = resultado;
   nuevoAtaqueDelJugador.innerHTML = ataqueJugador;
   nuevoAtaqueDelEnemigo.innerHTML = ataqueEnemigo;
 
-  
   ataquesDelJugador.appendChild(nuevoAtaqueDelJugador);
   ataquesDelEnemigo.appendChild(nuevoAtaqueDelEnemigo);
 }
 
 function crearMensajeFinal(resultadoFinal) {
-  let sectionMensajes = document.getElementById("resultado");
-
   sectionMensajes.innerHTML = resultadoFinal;
 
-  let btnMascotaJugador = document.getElementById("btn-mascota");
   btnMascotaJugador.disabled = true;
-  let botonFuego = document.getElementById("btn-fuego");
+
   botonFuego.disabled = true;
-  let botonAgua = document.getElementById("btn-agua");
+
   botonAgua.disabled = true;
-  let botonAire = document.getElementById("btn-aire");
+
   botonAire.disabled = true;
 
-  let sectionReiniciar = document.getElementById("reiniciar");
   sectionReiniciar.style.display = "block";
 }
 
