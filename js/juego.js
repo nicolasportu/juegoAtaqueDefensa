@@ -1,38 +1,48 @@
-// iniciarJuego
 const sectionReiniciar = document.getElementById("reiniciar");
 const btnMascotaJugador = document.getElementById("btn-mascota");
-const botonFuego = document.getElementById("btn-fuego");
 const sectionSeleccionarAtaque = document.getElementById("seleccionar-ataque");
-const botonAgua = document.getElementById("btn-agua");
-const botonAire = document.getElementById("btn-aire");
+
 const botonReinicio = document.getElementById("btn-reiniciar");
 
-//SeleccionarMascotaJugador
 const sectionSeleccionarMascota = document.getElementById("seleccionar-mascota");
 const spanMascotaJugador = document.getElementById("mascota-jugador");
 
-//SeleccionarMascotaEnemigo
 const spanMascotaEnemigo = document.getElementById("mascota-enemigo");
 
-//combateSpace
 const spanVidasJugador = document.getElementById("vidas-jugador");
 const spanVidasEnemigo = document.getElementById("vidas-enemigo");
 
-//crearMensaje
 const sectionMensajes = document.getElementById("resultado");
 const ataquesDelJugador = document.getElementById("ataques-del-jugador");
 const ataquesDelEnemigo = document.getElementById("ataques-del-enemigo");
 const contenedorTarjetas = document.getElementById('contenedorTarjetas');
+const contenedorAtaques = document.getElementById('contenedorAtaques');
+
+const sectionVerMapa = document.getElementById('ver-mapa');
+const mapa = document.getElementById('mapa');
 
 let caballeros = []
 let ataqueJugador;
-let ataqueEnemigo;
+let ataqueEnemigo = [];
 let opcionDeCaballeros;
 let inputLeo;
 let inputFenix;
 let inputSeiya;
+let caballeroJugador;
+let ataquesCaballero;
+let ataquesCaballerosEnemigo;
+let botonFuego;
+let botonAgua;
+let botonAire;
+let botones = [];
+let ataquePlayer = [];
+let indexAtaqueJugador;
+let indexAtaqueEnemigo;
+let victoriasJugador = 0;
+let victoriasEnemigo = 0;
 let vidasJugador = 3;
 let vidasEnemigo = 3;
+let lienzo = mapa.getContext('2d');
 
 class Zodiaco {
   constructor(nombre, foto, vida) {
@@ -50,34 +60,35 @@ let fenix = new Zodiaco('Ikki', './assets/fenix-removebg-preview.png', 5);
 let seiya = new Zodiaco('Seiya', './assets/seiya-removebg-preview.png', 5);
 
 leo.ataques.push(
-  {nombre: '🔥', id: 'btn-fuego'},
-  {nombre: '🔥', id: 'btn-fuego'},
-  {nombre: '🔥', id: 'btn-fuego'},
-  {nombre: '💧', id: 'btn-agua'},
-  {nombre: '🌪', id: 'btn-aire'},
+  { nombre: '🔥', id: 'btn-fuego' },
+  { nombre: '🔥', id: 'btn-fuego' },
+  { nombre: '🔥', id: 'btn-fuego' },
+  { nombre: '💧', id: 'btn-agua' },
+  { nombre: '🌪', id: 'btn-aire' },
 );
 
 fenix.ataques.push(
-  {nombre: '🌪', id: 'btn-aire'},
-  {nombre: '🌪', id: 'btn-aire'},
-  {nombre: '🌪', id: 'btn-aire'},
-  {nombre: '💧', id: 'btn-agua'},
-  {nombre: '🔥', id: 'btn-fuego'},
+  { nombre: '🌪', id: 'btn-aire' },
+  { nombre: '🌪', id: 'btn-aire' },
+  { nombre: '🌪', id: 'btn-aire' },
+  { nombre: '💧', id: 'btn-agua' },
+  { nombre: '🔥', id: 'btn-fuego' },
 );
 
 seiya.ataques.push(
-  {nombre: '💧', id: 'btn-agua'},
-  {nombre: '💧', id: 'btn-agua'},
-  {nombre: '💧', id: 'btn-agua'},
-  {nombre: '🔥', id: 'btn-fuego'},
-  {nombre: '🌪', id: 'btn-aire'},
-); 
+  { nombre: '💧', id: 'btn-agua' },
+  { nombre: '💧', id: 'btn-agua' },
+  { nombre: '💧', id: 'btn-agua' },
+  { nombre: '🔥', id: 'btn-fuego' },
+  { nombre: '🌪', id: 'btn-aire' },
+);
 
 caballeros.push(leo, fenix, seiya);
 
 function iniciarJuego() {
   sectionSeleccionarAtaque.style.display = "none";
   sectionReiniciar.style.display = "none";
+  sectionVerMapa.style.display = 'none';
 
   caballeros.forEach((caballero) => {
     opcionDeCaballeros = `
@@ -96,101 +107,167 @@ function iniciarJuego() {
   })
 
   btnMascotaJugador.addEventListener("click", SeleccionarMascotaJugador);
-  botonFuego.addEventListener("click", ataqueFuego);
-  botonAgua.addEventListener("click", ataqueAgua);
-  botonAire.addEventListener("click", ataqueAire);
+
   botonReinicio.addEventListener("click", botonReiniciarJuego);
 }
 
 function SeleccionarMascotaJugador() {
   sectionSeleccionarMascota.style.display = "none";
 
-  sectionSeleccionarAtaque.style.display = "flex";
+  //sectionSeleccionarAtaque.style.display = "flex";
+  sectionVerMapa.style.display = 'flex';
+  let imagenDeLeo = new Image()
+  imagenDeLeo.src = leo.foto; 
+  lienzo.drawImage(
+    imagenDeLeo,
+    20,
+    40,
+    100,
+    100
+  )
 
-  let comenzarJuego = 1;
 
   if (inputLeo.checked) {
     spanMascotaJugador.innerHTML = inputLeo.id;
+    caballeroJugador = inputLeo.id;
   } else if (inputFenix.checked) {
     spanMascotaJugador.innerHTML = inputFenix.id;
+    caballeroJugador = inputFenix.id;
   } else if (inputSeiya.checked) {
     spanMascotaJugador.innerHTML = inputSeiya.id;
+    caballeroJugador = inputSeiya.id;
   } else {
     alert("Tenes que seleccionar una mascota");
-    comenzarJuego = 0;
+
   }
 
-  if (comenzarJuego == 1) {
-    SeleccionarMascotaEnemigo();
+  extraerAtaques(caballeroJugador);
+  SeleccionarMascotaEnemigo();
+
+}
+
+function extraerAtaques(caballeroJugador) {
+  let ataques
+  for (let i = 0; i < caballeros.length; i++) {
+    if (caballeroJugador == caballeros[i].nombre) {
+      ataques = caballeros[i].ataques;
+    }
   }
+
+  mostrarAtaques(ataques);
+}
+
+function mostrarAtaques(ataques) {
+  ataques.forEach((ataque) => {
+    ataquesCaballero = `<button id=${ataque.id} class="boton-de-ataque BAtaque">${ataque.nombre}</button>`
+
+    contenedorAtaques.innerHTML += ataquesCaballero
+  })
+
+  botonFuego = document.getElementById("btn-fuego");
+  botonAgua = document.getElementById("btn-agua");
+  botonAire = document.getElementById("btn-aire");
+  botones = document.querySelectorAll('.BAtaque');
+
+}
+
+function secuenciaDeAtaques() {
+  botones.forEach((boton) => {
+    boton.addEventListener('click', (e) => {
+      if (e.target.textContent === '🔥') {
+        ataquePlayer.push('FUEGO')
+        console.log(ataquePlayer)
+        boton.style.background = '#EB1D36';
+        boton.style.display = 'none';
+      } else if (e.target.textContent === '💧') {
+        ataquePlayer.push('AGUA')
+        console.log(ataquePlayer)
+        boton.style.background = '#EB1D36';
+        boton.style.display = 'none';
+      } else {
+        ataquePlayer.push('AIRE')
+        console.log(ataquePlayer)
+        boton.style.background = '#EB1D36';
+        boton.style.display = 'none';
+      }
+      ataqueRandomEnemigo();
+    })
+  })
 }
 
 function SeleccionarMascotaEnemigo() {
-  let aleatorioEnemigo = aleatorio(1, 3);
+  let aleatorioEnemigo = aleatorio(0, caballeros.length - 1);
 
-  if (aleatorioEnemigo == 1) {
-    spanMascotaEnemigo.innerHTML = "Aioria";
-  } else if (aleatorioEnemigo == 2) {
-    spanMascotaEnemigo.innerHTML = "Ikki";
-  } else {
-    spanMascotaEnemigo.innerHTML = "Seiya";
-  }
-}
-
-function ataqueFuego() {
-  ataqueJugador = "FUEGO";
-  ataqueRandomEnemigo();
-}
-
-function ataqueAgua() {
-  ataqueJugador = "AGUA";
-  ataqueRandomEnemigo();
-}
-
-function ataqueAire() {
-  ataqueJugador = "AIRE";
-  ataqueRandomEnemigo();
+  spanMascotaEnemigo.innerHTML = caballeros[aleatorioEnemigo].nombre
+  ataquesCaballerosEnemigo = caballeros[aleatorioEnemigo].ataques
+  secuenciaDeAtaques();
 }
 
 function ataqueRandomEnemigo() {
-  let ataqueAleatorio = aleatorio(1, 3);
+  let ataqueAleatorio = aleatorio(0, ataquesCaballerosEnemigo.length - 1);
 
-  if (ataqueAleatorio == 1) {
-    ataqueEnemigo = "FUEGO";
-  } else if (ataqueAleatorio == 2) {
-    ataqueEnemigo = "AGUA";
+  if (ataqueAleatorio == 0 || ataqueAleatorio == 1) {
+    ataqueEnemigo.push('FUEGO');
+  } else if (ataqueAleatorio == 3 || ataqueAleatorio == 4) {
+    ataqueEnemigo.push('AGUA');
   } else {
-    ataqueEnemigo = "AIRE";
+    ataqueEnemigo.push('AIRE');
   }
 
-  combateSpace();
+  console.log(ataqueEnemigo)
+  iniciarCombate()
+}
+
+function iniciarCombate() {
+  if (ataquePlayer.length === 5) {
+    combateSpace();
+  }
+}
+
+function indexAmbosOponentes(jugador, enemigo) {
+  indexAtaqueJugador = ataquePlayer[jugador]
+  indexAtaqueEnemigo = ataqueEnemigo[enemigo]
 }
 
 function combateSpace() {
-  if (ataqueEnemigo == ataqueJugador) {
-    crearMensaje("EMPATE");
-  } else if (
-    (ataqueJugador == "FUEGO" && ataqueEnemigo == "AIRE") ||
-    (ataqueJugador == "AGUA" && ataqueEnemigo == "FUEGO") ||
-    (ataqueJugador == "AIRE" && ataqueEnemigo == "AGUA")
-  ) {
-    crearMensaje("GANASTE");
-    vidasEnemigo--;
-    spanVidasEnemigo.innerHTML = vidasEnemigo;
-  } else {
-    crearMensaje("PERDISTE");
-    vidasJugador--;
-    spanVidasJugador.innerHTML = vidasJugador;
+  for (let index = 0; index < ataquePlayer.length; index++) {
+    if (ataquePlayer[index] === ataqueEnemigo[index]) {
+      indexAmbosOponentes(index, index)
+      crearMensaje("EMPATE");
+    } else if (ataquePlayer[index] == 'FUEGO' && ataqueEnemigo[index] == 'AIRE') {
+      indexAmbosOponentes(index, index)
+      crearMensaje("GANASTE")
+      victoriasJugador++;
+      spanVidasJugador.innerHTML = victoriasJugador;
+    } else if (ataquePlayer[index] == 'AGUA' && ataqueEnemigo[index] == 'FUEGO') {
+      indexAmbosOponentes(index, index)
+      crearMensaje("GANASTE")
+      victoriasJugador++;
+      spanVidasJugador.innerHTML = victoriasJugador;
+    } else if (ataquePlayer[index] == 'AIRE' && ataqueEnemigo[index] == 'AGUA') {
+      indexAmbosOponentes(index, index)
+      crearMensaje("GANASTE")
+      victoriasJugador++;
+      spanVidasJugador.innerHTML = victoriasJugador;
+    } else {
+      indexAmbosOponentes(index, index)
+      crearMensaje("PERDISTE")
+      victoriasEnemigo++
+      spanVidasEnemigo.innerHTML = victoriasEnemigo;
+    }
+
   }
 
   resultadoVidas();
 }
 
 function resultadoVidas() {
-  if (vidasEnemigo == 0) {
-    crearMensajeFinal("JUEGO GANADO");
-  } else if (vidasJugador == 0) {
-    crearMensajeFinal("JUEGO PERDIDO");
+  if (victoriasJugador === victoriasEnemigo) {
+    crearMensajeFinal("PARTIDA EMPATADA");
+  } else if (victoriasJugador > victoriasEnemigo) {
+    crearMensajeFinal("FELICITACIONES, GANASTE!!");
+  } else {
+    crearMensajeFinal("PERDISTE LA PARTIDA");
   }
 }
 
@@ -199,8 +276,8 @@ function crearMensaje(resultado) {
   let nuevoAtaqueDelEnemigo = document.createElement("p");
 
   sectionMensajes.innerHTML = resultado;
-  nuevoAtaqueDelJugador.innerHTML = ataqueJugador;
-  nuevoAtaqueDelEnemigo.innerHTML = ataqueEnemigo;
+  nuevoAtaqueDelJugador.innerHTML = indexAtaqueJugador;
+  nuevoAtaqueDelEnemigo.innerHTML = indexAtaqueEnemigo;
 
   ataquesDelJugador.appendChild(nuevoAtaqueDelJugador);
   ataquesDelEnemigo.appendChild(nuevoAtaqueDelEnemigo);
@@ -208,15 +285,10 @@ function crearMensaje(resultado) {
 
 function crearMensajeFinal(resultadoFinal) {
   sectionMensajes.innerHTML = resultadoFinal;
-
   btnMascotaJugador.disabled = true;
-
   botonFuego.disabled = true;
-
   botonAgua.disabled = true;
-
   botonAire.disabled = true;
-
   sectionReiniciar.style.display = "block";
 }
 

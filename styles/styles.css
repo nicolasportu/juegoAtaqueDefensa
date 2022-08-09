@@ -30,7 +30,7 @@ body {
   color: #e2dcc8;
   font-size: 70px;
   text-decoration: underline;
-  margin: 25px 5px;
+  margin: 45px 5px;
   text-shadow: 5px 1px #100f0f, 2px 0 #0f3d3e;
 }
 
@@ -53,8 +53,8 @@ body {
   height: 300px;
   background: transparent;
   padding: 10px;
-  margin: 10px;
-  border: 1px solid #fff;
+  margin-top: 80px;
+  border: 1px solid #E2DCC8;
   border-radius: 15px;
   display: flex;
   justify-content: center;
@@ -75,7 +75,7 @@ body {
   margin-top: 30px;
   cursor: pointer;
   position: fixed;
-  top: 480px;
+  bottom: 280px;
 }
 
 .tarjeta img {
@@ -107,16 +107,23 @@ input:checked + label {
   font-family: "vengadores";
   font-size: 25px;
   color: #e2dcc8;
-  width: 160px;
+  width: 140px;
   height: 40px;
   border-radius: 15px;
   border-color: transparent;
   margin: 30px 10px;
   cursor: pointer;
+  transition: .4s ease all;
+}
+
+.boton-de-ataque:hover {
+  background-color: #100F0F;
+  transition: .4s ease-in-out all;
+
 }
 
 #mensajes {
-  width: 200px;
+  width: 295px;
   background: #E2DCC8;
   padding: 20px;
   margin: 5px;
@@ -174,6 +181,70 @@ input:checked + label {
   align-items: center;
 }
 
+#ver-mapa {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#mapa {
+  border: 2px solid #E2DCC8;
+}
+
+footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.tituloFooter {
+  width: 400px;
+  height: 40px;
+  border-radius: 15px;
+  background: #100f0f;
+  border-color: transparent;
+  color: #e2dcc8;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-icons-contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+}
+
+.social-icon {
+  height: 60px;
+  width: 60px;
+  border-radius: 50px;
+  background-image: url(../assets/github.png);
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  margin: 0.5rem;
+}
+
+.social-icon:hover {
+  background-color: #0F3D3E;
+  filter: saturate(5);
+}
+
+.social-icon:nth-of-type(2) {
+  background-image: url(../assets/email.png)
+}
+
 @media (max-width: 360px) {
   .tarjetas,
   .tarjetas-ataques {
@@ -183,5 +254,10 @@ input:checked + label {
   .titulo,
   .subtitulo {
     font-size: 25px;
+  }
+ 
+  .tituloFooter {
+    width: 250px;
+    font-size: 1rem;
   }
 }

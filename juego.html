@@ -1,61 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <link rel="shortcut icon" href="assets/favicon-32x32.png" type="image/x-icon">
+
     <link rel="stylesheet" href="styles/styles.css" />
-    <title>JUEGO</title>
-</head>
+    <title>JUEGO - La Gran Batalla</title>
+  </head>
 
-<body>
+  <body>
     <section class="tarjeta-grupo" id="seleccionar-mascota">
-        <h1 class="titulo">LA GRAN BATALLA</h1>
+      <h1 class="titulo">LA GRAN BATALLA</h1>
 
-        <h2 class="subtitulo">Elegi tu personaje</h2>
+      <h2 class="subtitulo">Elegi tu personaje</h2>
 
-        <div id="contenedorTarjetas" class="tarjetas"></div>
+      <div id="contenedorTarjetas" class="tarjetas"></div>
 
-        <button id="btn-mascota">Seleccionar</button>
+      <button id="btn-mascota">Seleccionar</button>
+    </section>
+
+    <section id="ver-mapa">
+        <h1 class="titulo-canva">Recorre el mapa con tu caballero</h1>
+        <canvas id="mapa"></canvas>
+        <button onclick="moverLeo()">Mover</button>
     </section>
 
     <section id="seleccionar-ataque">
-        <h1 class="titulo">LA GRAN BATALLA</h1>
+      <h1 class="titulo">LA GRAN BATALLA</h1>
 
-        <h2 class="subtitulo">Elegi tu ataque:</h2>
+      <h2 class="subtitulo">Elegi tu ataque:</h2>
 
-        <div class="tarjetas-ataques">
-            <button id="btn-fuego" class="boton-de-ataque">FUEGO 🔥</button>
-            <button id="btn-agua" class="boton-de-ataque">AGUA 💧</button>
-            <button id="btn-aire" class="boton-de-ataque">AIRE 🌪</button>
+      <div id="contenedorAtaques" class="tarjetas-ataques"></div>
+
+      <div id="mensajes">
+        <div id="resultado">¡Mucha Suerte!</div>
+
+        <div id="reiniciar">
+          <button id="btn-reiniciar">Reiniciar</button>
+        </div>
+      </div>
+
+      <div class="ataques">
+        <div class="ataques-jugador">
+          <p id="vidas-jugador">0</p>
+          <p id="mascota-jugador"></p>
+          <div id="ataques-del-jugador"></div>
         </div>
 
-        <div id="mensajes">
-            <div id="resultado">¡Mucha Suerte!</div>
-
-            <div id="reiniciar">
-                <button id="btn-reiniciar">Reiniciar</button>
-            </div>
+        <div class="ataques-enemigo">
+          <span id="vidas-enemigo">0</span>
+          <span id="mascota-enemigo"></span>
+          <div id="ataques-del-enemigo"></div>
         </div>
-
-        <div class="ataques">
-            <div class="ataques-jugador">
-                <p id="vidas-jugador">3</p>
-                <p id="mascota-jugador"></p>
-                <div id="ataques-del-jugador"></div>
-            </div>
-
-            <div class="ataques-enemigo">
-                <span id="vidas-enemigo">3</span>
-                <span id="mascota-enemigo"></span>
-                <div id="ataques-del-enemigo"></div>
-            </div>
-        </div>
+      </div>
     </section>
 
-    <script src="js/juego.js" type="module"></script>
-</body>
+    <footer>
+        <h2 class="tituloFooter">Nicolas dos Santos Cabrita</h2>
+        <div class="social-icons-contenedor">
+            <a href="https://github.com/nicolasportu" class="social-icon" target="_blank"></a>
+            <a href="mailto:cabritanicolas@gmail.com" class="social-icon" target="_blank"></a>
+        </div>
+    </footer>
 
+    <script src="js/juego.js" type="module"></script>
+  </body>
 </html>
