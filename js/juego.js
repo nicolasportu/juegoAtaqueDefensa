@@ -42,7 +42,6 @@ let victoriasJugador = 0;
 let victoriasEnemigo = 0;
 let vidasJugador = 3;
 let vidasEnemigo = 3;
-let lienzo = mapa.getContext('2d');
 
 class Zodiaco {
   constructor(nombre, foto, vida) {
@@ -88,7 +87,6 @@ caballeros.push(leo, fenix, seiya);
 function iniciarJuego() {
   sectionSeleccionarAtaque.style.display = "none";
   sectionReiniciar.style.display = "none";
-  sectionVerMapa.style.display = 'none';
 
   caballeros.forEach((caballero) => {
     opcionDeCaballeros = `
@@ -114,17 +112,7 @@ function iniciarJuego() {
 function SeleccionarMascotaJugador() {
   sectionSeleccionarMascota.style.display = "none";
 
-  //sectionSeleccionarAtaque.style.display = "flex";
-  sectionVerMapa.style.display = 'flex';
-  let imagenDeLeo = new Image()
-  imagenDeLeo.src = leo.foto; 
-  lienzo.drawImage(
-    imagenDeLeo,
-    20,
-    40,
-    100,
-    100
-  )
+  sectionSeleccionarAtaque.style.display = "flex";
 
 
   if (inputLeo.checked) {
