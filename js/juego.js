@@ -1,6 +1,7 @@
 const sectionReiniciar = document.getElementById("reiniciar");
 const btnMascotaJugador = document.getElementById("btn-mascota");
 const sectionSeleccionarAtaque = document.getElementById("seleccionar-ataque");
+sectionReiniciar.style.display = "none";
 
 const botonReinicio = document.getElementById("btn-reiniciar");
 
@@ -18,9 +19,7 @@ const ataquesDelEnemigo = document.getElementById("ataques-del-enemigo");
 const contenedorTarjetas = document.getElementById('contenedorTarjetas');
 const contenedorAtaques = document.getElementById('contenedorAtaques');
 
-const sectionVerMapa = document.getElementById('ver-mapa');
-const mapa = document.getElementById('mapa');
-
+let jugadorId = null;
 let caballeros = []
 let ataqueJugador;
 let ataqueEnemigo = [];
@@ -48,7 +47,7 @@ class Zodiaco {
     this.nombre = nombre;
     this.foto = foto;
     this.vida = vida;
-    this.ataques = []
+    this.ataques = [];
   }
 }
 
@@ -86,7 +85,6 @@ caballeros.push(leo, fenix, seiya);
 
 function iniciarJuego() {
   sectionSeleccionarAtaque.style.display = "none";
-  sectionReiniciar.style.display = "none";
 
   caballeros.forEach((caballero) => {
     opcionDeCaballeros = `
@@ -107,13 +105,28 @@ function iniciarJuego() {
   btnMascotaJugador.addEventListener("click", SeleccionarMascotaJugador);
 
   botonReinicio.addEventListener("click", botonReiniciarJuego);
+
+  unirseAlJuego()
+}
+
+function unirseAlJuego() {
+  fetch("http://localhost:8080/unirse")
+    .then(function (res) {
+      if(res.ok) {
+          res.text()
+            .then(function (respuesta) {
+              console.log(respuesta)
+              jugadorId = respuesta
+            })
+      }
+    })
 }
 
 function SeleccionarMascotaJugador() {
   sectionSeleccionarMascota.style.display = "none";
 
   sectionSeleccionarAtaque.style.display = "flex";
-
+  
 
   if (inputLeo.checked) {
     spanMascotaJugador.innerHTML = inputLeo.id;
@@ -126,12 +139,25 @@ function SeleccionarMascotaJugador() {
     caballeroJugador = inputSeiya.id;
   } else {
     alert("Tenes que seleccionar una mascota");
-
   }
+
+  seleccionarMokepon(caballeroJugador)
 
   extraerAtaques(caballeroJugador);
   SeleccionarMascotaEnemigo();
 
+}
+
+function seleccionarMokepon(caballeroJugador) {
+  fetch(`http://localhost:8080/mokepon/${jugadorId}`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      caballero: caballeroJugador
+    })
+  })
 }
 
 function extraerAtaques(caballeroJugador) {
