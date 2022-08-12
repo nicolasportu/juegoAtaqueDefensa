@@ -5,7 +5,9 @@ sectionReiniciar.style.display = "none";
 
 const botonReinicio = document.getElementById("btn-reiniciar");
 
-const sectionSeleccionarMascota = document.getElementById("seleccionar-mascota");
+const sectionSeleccionarMascota = document.getElementById(
+  "seleccionar-mascota"
+);
 const spanMascotaJugador = document.getElementById("mascota-jugador");
 
 const spanMascotaEnemigo = document.getElementById("mascota-enemigo");
@@ -16,11 +18,11 @@ const spanVidasEnemigo = document.getElementById("vidas-enemigo");
 const sectionMensajes = document.getElementById("resultado");
 const ataquesDelJugador = document.getElementById("ataques-del-jugador");
 const ataquesDelEnemigo = document.getElementById("ataques-del-enemigo");
-const contenedorTarjetas = document.getElementById('contenedorTarjetas');
-const contenedorAtaques = document.getElementById('contenedorAtaques');
+const contenedorTarjetas = document.getElementById("contenedorTarjetas");
+const contenedorAtaques = document.getElementById("contenedorAtaques");
 
 let jugadorId = null;
-let caballeros = []
+let caballeros = [];
 let ataqueJugador;
 let ataqueEnemigo = [];
 let opcionDeCaballeros;
@@ -51,34 +53,34 @@ class Zodiaco {
   }
 }
 
-let leo = new Zodiaco('Aioria', './assets/aioriaDeLeo-removebg-preview.png', 5);
+let leo = new Zodiaco("Aioria", "./assets/aioriaDeLeo-removebg-preview.png", 5);
 
-let fenix = new Zodiaco('Ikki', './assets/fenix-removebg-preview.png', 5);
+let fenix = new Zodiaco("Ikki", "./assets/fenix-removebg-preview.png", 5);
 
-let seiya = new Zodiaco('Seiya', './assets/seiya-removebg-preview.png', 5);
+let seiya = new Zodiaco("Seiya", "./assets/seiya-removebg-preview.png", 5);
 
 leo.ataques.push(
-  { nombre: '🔥', id: 'btn-fuego' },
-  { nombre: '🔥', id: 'btn-fuego' },
-  { nombre: '🔥', id: 'btn-fuego' },
-  { nombre: '💧', id: 'btn-agua' },
-  { nombre: '🌪', id: 'btn-aire' },
+  { nombre: "🔥", id: "btn-fuego" },
+  { nombre: "🔥", id: "btn-fuego" },
+  { nombre: "🔥", id: "btn-fuego" },
+  { nombre: "💧", id: "btn-agua" },
+  { nombre: "🌪", id: "btn-aire" }
 );
 
 fenix.ataques.push(
-  { nombre: '🌪', id: 'btn-aire' },
-  { nombre: '🌪', id: 'btn-aire' },
-  { nombre: '🌪', id: 'btn-aire' },
-  { nombre: '💧', id: 'btn-agua' },
-  { nombre: '🔥', id: 'btn-fuego' },
+  { nombre: "🌪", id: "btn-aire" },
+  { nombre: "🌪", id: "btn-aire" },
+  { nombre: "🌪", id: "btn-aire" },
+  { nombre: "💧", id: "btn-agua" },
+  { nombre: "🔥", id: "btn-fuego" }
 );
 
 seiya.ataques.push(
-  { nombre: '💧', id: 'btn-agua' },
-  { nombre: '💧', id: 'btn-agua' },
-  { nombre: '💧', id: 'btn-agua' },
-  { nombre: '🔥', id: 'btn-fuego' },
-  { nombre: '🌪', id: 'btn-aire' },
+  { nombre: "💧", id: "btn-agua" },
+  { nombre: "💧", id: "btn-agua" },
+  { nombre: "💧", id: "btn-agua" },
+  { nombre: "🔥", id: "btn-fuego" },
+  { nombre: "🌪", id: "btn-aire" }
 );
 
 caballeros.push(leo, fenix, seiya);
@@ -93,41 +95,34 @@ function iniciarJuego() {
         <p>${caballero.nombre}</p>
         <img src=${caballero.foto} alt=${caballero.nombre} />
     </label>
-    `
+    `;
 
     contenedorTarjetas.innerHTML += opcionDeCaballeros;
 
     inputLeo = document.getElementById("Aioria");
     inputFenix = document.getElementById("Ikki");
     inputSeiya = document.getElementById("Seiya");
-  })
+  });
 
   btnMascotaJugador.addEventListener("click", SeleccionarMascotaJugador);
 
   botonReinicio.addEventListener("click", botonReiniciarJuego);
 
-  unirseAlJuego()
+  unirseAlJuego();
 }
 
 function unirseAlJuego() {
-  fetch("http://localhost:8080/unirse")
-    .then(function (res) {
-      if(res.ok) {
-          res.text()
-            .then(function (respuesta) {
-              console.log(respuesta)
-              jugadorId = respuesta
-            })
-      }
-    })
+  fetch("http://localhost:8080/unirse").then(function (res) {
+    if (res.ok) {
+      res.text().then(function (respuesta) {
+        console.log(respuesta);
+        jugadorId = respuesta;
+      });
+    }
+  });
 }
 
 function SeleccionarMascotaJugador() {
-  sectionSeleccionarMascota.style.display = "none";
-
-  sectionSeleccionarAtaque.style.display = "flex";
-  
-
   if (inputLeo.checked) {
     spanMascotaJugador.innerHTML = inputLeo.id;
     caballeroJugador = inputLeo.id;
@@ -139,29 +134,32 @@ function SeleccionarMascotaJugador() {
     caballeroJugador = inputSeiya.id;
   } else {
     alert("Tenes que seleccionar una mascota");
+    return;
   }
 
-  seleccionarMokepon(caballeroJugador)
+  sectionSeleccionarMascota.style.display = "none";
+  sectionSeleccionarAtaque.style.display = "flex";
+
+  seleccionarMokepon(caballeroJugador);
 
   extraerAtaques(caballeroJugador);
   SeleccionarMascotaEnemigo();
-
 }
 
 function seleccionarMokepon(caballeroJugador) {
   fetch(`http://localhost:8080/mokepon/${jugadorId}`, {
     method: "post",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      caballero: caballeroJugador
-    })
-  })
+      caballero: caballeroJugador,
+    }),
+  });
 }
 
 function extraerAtaques(caballeroJugador) {
-  let ataques
+  let ataques;
   for (let i = 0; i < caballeros.length; i++) {
     if (caballeroJugador == caballeros[i].nombre) {
       ataques = caballeros[i].ataques;
@@ -173,47 +171,46 @@ function extraerAtaques(caballeroJugador) {
 
 function mostrarAtaques(ataques) {
   ataques.forEach((ataque) => {
-    ataquesCaballero = `<button id=${ataque.id} class="boton-de-ataque BAtaque">${ataque.nombre}</button>`
+    ataquesCaballero = `<button id=${ataque.id} class="boton-de-ataque BAtaque">${ataque.nombre}</button>`;
 
-    contenedorAtaques.innerHTML += ataquesCaballero
-  })
+    contenedorAtaques.innerHTML += ataquesCaballero;
+  });
 
   botonFuego = document.getElementById("btn-fuego");
   botonAgua = document.getElementById("btn-agua");
   botonAire = document.getElementById("btn-aire");
-  botones = document.querySelectorAll('.BAtaque');
-
+  botones = document.querySelectorAll(".BAtaque");
 }
 
 function secuenciaDeAtaques() {
   botones.forEach((boton) => {
-    boton.addEventListener('click', (e) => {
-      if (e.target.textContent === '🔥') {
-        ataquePlayer.push('FUEGO')
-        console.log(ataquePlayer)
-        boton.style.background = '#EB1D36';
-        boton.style.display = 'none';
-      } else if (e.target.textContent === '💧') {
-        ataquePlayer.push('AGUA')
-        console.log(ataquePlayer)
-        boton.style.background = '#EB1D36';
-        boton.style.display = 'none';
+    boton.addEventListener("click", (e) => {
+      if (e.target.textContent === "🔥") {
+        ataquePlayer.push("FUEGO");
+        console.log(ataquePlayer);
+        boton.style.background = "#EB1D36";
+        boton.style.display = "none";
+      } else if (e.target.textContent === "💧") {
+        ataquePlayer.push("AGUA");
+        console.log(ataquePlayer);
+        boton.style.background = "#EB1D36";
+        boton.style.display = "none";
       } else {
-        ataquePlayer.push('AIRE')
-        console.log(ataquePlayer)
-        boton.style.background = '#EB1D36';
-        boton.style.display = 'none';
+        ataquePlayer.push("AIRE");
+        console.log(ataquePlayer);
+        boton.style.background = "#EB1D36";
+        boton.style.display = "none";
       }
       ataqueRandomEnemigo();
-    })
-  })
+    });
+  });
 }
 
 function SeleccionarMascotaEnemigo() {
   let aleatorioEnemigo = aleatorio(0, caballeros.length - 1);
 
-  spanMascotaEnemigo.innerHTML = caballeros[aleatorioEnemigo].nombre
-  ataquesCaballerosEnemigo = caballeros[aleatorioEnemigo].ataques
+  spanMascotaEnemigo.innerHTML = caballeros[aleatorioEnemigo].nombre;
+  ataquesCaballerosEnemigo = caballeros[aleatorioEnemigo].ataques;
   secuenciaDeAtaques();
 }
 
@@ -221,15 +218,15 @@ function ataqueRandomEnemigo() {
   let ataqueAleatorio = aleatorio(0, ataquesCaballerosEnemigo.length - 1);
 
   if (ataqueAleatorio == 0 || ataqueAleatorio == 1) {
-    ataqueEnemigo.push('FUEGO');
+    ataqueEnemigo.push("FUEGO");
   } else if (ataqueAleatorio == 3 || ataqueAleatorio == 4) {
-    ataqueEnemigo.push('AGUA');
+    ataqueEnemigo.push("AGUA");
   } else {
-    ataqueEnemigo.push('AIRE');
+    ataqueEnemigo.push("AIRE");
   }
 
-  console.log(ataqueEnemigo)
-  iniciarCombate()
+  console.log(ataqueEnemigo);
+  iniciarCombate();
 }
 
 function iniciarCombate() {
@@ -239,37 +236,45 @@ function iniciarCombate() {
 }
 
 function indexAmbosOponentes(jugador, enemigo) {
-  indexAtaqueJugador = ataquePlayer[jugador]
-  indexAtaqueEnemigo = ataqueEnemigo[enemigo]
+  indexAtaqueJugador = ataquePlayer[jugador];
+  indexAtaqueEnemigo = ataqueEnemigo[enemigo];
 }
 
 function combateSpace() {
   for (let index = 0; index < ataquePlayer.length; index++) {
     if (ataquePlayer[index] === ataqueEnemigo[index]) {
-      indexAmbosOponentes(index, index)
+      indexAmbosOponentes(index, index);
       crearMensaje("EMPATE");
-    } else if (ataquePlayer[index] == 'FUEGO' && ataqueEnemigo[index] == 'AIRE') {
-      indexAmbosOponentes(index, index)
-      crearMensaje("GANASTE")
+    } else if (
+      ataquePlayer[index] == "FUEGO" &&
+      ataqueEnemigo[index] == "AIRE"
+    ) {
+      indexAmbosOponentes(index, index);
+      crearMensaje("GANASTE");
       victoriasJugador++;
       spanVidasJugador.innerHTML = victoriasJugador;
-    } else if (ataquePlayer[index] == 'AGUA' && ataqueEnemigo[index] == 'FUEGO') {
-      indexAmbosOponentes(index, index)
-      crearMensaje("GANASTE")
+    } else if (
+      ataquePlayer[index] == "AGUA" &&
+      ataqueEnemigo[index] == "FUEGO"
+    ) {
+      indexAmbosOponentes(index, index);
+      crearMensaje("GANASTE");
       victoriasJugador++;
       spanVidasJugador.innerHTML = victoriasJugador;
-    } else if (ataquePlayer[index] == 'AIRE' && ataqueEnemigo[index] == 'AGUA') {
-      indexAmbosOponentes(index, index)
-      crearMensaje("GANASTE")
+    } else if (
+      ataquePlayer[index] == "AIRE" &&
+      ataqueEnemigo[index] == "AGUA"
+    ) {
+      indexAmbosOponentes(index, index);
+      crearMensaje("GANASTE");
       victoriasJugador++;
       spanVidasJugador.innerHTML = victoriasJugador;
     } else {
-      indexAmbosOponentes(index, index)
-      crearMensaje("PERDISTE")
-      victoriasEnemigo++
+      indexAmbosOponentes(index, index);
+      crearMensaje("PERDISTE");
+      victoriasEnemigo++;
       spanVidasEnemigo.innerHTML = victoriasEnemigo;
     }
-
   }
 
   resultadoVidas();

@@ -1,9 +1,6 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
- */
-
 @font-face {
   font-family: "vengadores";
-  src: url(../font/fuenteAvengers.ttf);
+  src: url(../public/font/fuenteAvengers.ttf);
 }
 
 * {
@@ -14,7 +11,7 @@
 
 body {
   font-family: "vengadores";
-  background-image: url(../assets/fondo.jpg);
+  background-image: url(../public/assets/fondo.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -54,7 +51,7 @@ body {
   background: transparent;
   padding: 10px;
   margin-top: 80px;
-  border: 1px solid #E2DCC8;
+  border: 1px solid #e2dcc8;
   border-radius: 15px;
   display: flex;
   justify-content: center;
@@ -94,7 +91,7 @@ input {
 }
 
 input:checked + label {
-  background: url(../assets/fondo-personaje.jpg);
+  background: url(../public/assets/fondo-personaje.jpg);
 }
 
 #seleccionar-ataque {
@@ -113,18 +110,17 @@ input:checked + label {
   border-color: transparent;
   margin: 30px 10px;
   cursor: pointer;
-  transition: .4s ease all;
+  transition: 0.4s ease all;
 }
 
 .boton-de-ataque:hover {
-  background-color: #100F0F;
-  transition: .4s ease-in-out all;
-
+  background-color: #100f0f;
+  transition: 0.4s ease-in-out all;
 }
 
 #mensajes {
   width: 295px;
-  background: #E2DCC8;
+  background: #e2dcc8;
   padding: 20px;
   margin: 5px;
   border-radius: 15px;
@@ -154,7 +150,7 @@ input:checked + label {
   text-align: center;
   margin: 10px;
   line-height: 25px;
-  background: #E2DCC8;
+  background: #e2dcc8;
   border-radius: 15px;
 }
 
@@ -164,7 +160,7 @@ input:checked + label {
   border-radius: 4px;
   margin: 5px;
   padding: 5px;
-  color: #100F0F;
+  color: #100f0f;
 }
 
 #mascota-jugador,
@@ -218,7 +214,7 @@ footer {
   height: 60px;
   width: 60px;
   border-radius: 50px;
-  background-image: url(../assets/github.png);
+  background-image: url(../public/assets/github.png);
   background-position: center;
   background-size: 100%;
   background-repeat: no-repeat;
@@ -226,12 +222,12 @@ footer {
 }
 
 .social-icon:hover {
-  background-color: #0F3D3E;
+  background-color: #0f3d3e;
   filter: saturate(5);
 }
 
 .social-icon:nth-of-type(2) {
-  background-image: url(../assets/email.png)
+  background-image: url(../public/assets/email.png);
 }
 
 @media (max-width: 360px) {
@@ -244,7 +240,7 @@ footer {
   .subtitulo {
     font-size: 25px;
   }
- 
+
   .tituloFooter {
     width: 250px;
     font-size: 1rem;
